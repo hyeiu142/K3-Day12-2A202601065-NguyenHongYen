@@ -21,7 +21,7 @@ jobs:
           pip install -r requirements.txt
       - name: Run unit tests
         env:
-          AGENT_API_KEY: "ci-test-secret-key-32-chars-long-abc"
+          AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
           REDIS_URL: "fake://"
         run: |
           pytest tests/ --ignore=tests/test_cp5.py
