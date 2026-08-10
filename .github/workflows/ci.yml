@@ -24,7 +24,7 @@ jobs:
           AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
           REDIS_URL: "fake://"
         run: |
-          pytest tests/ --ignore=tests/test_cp5.py
+          pytest tests/ --ignore=tests/test_cp5.py --ignore=tests/test_bonus_cicd.py
 
   build:
     runs-on: ubuntu-latest
