@@ -73,6 +73,11 @@ class AskRequest(BaseModel):
 # ─────────────────────────────────────────────────────────────
 # Health & readiness
 # ─────────────────────────────────────────────────────────────
+@app.get("/")
+def root():
+    return health()
+
+
 @app.get("/health")
 def health():
     """Liveness probe — process còn sống không?
@@ -138,7 +143,13 @@ def ask(
 
 
 if __name__ == "__main__":
+    import os
     import uvicorn
 
-    settings = get_settings()
-    uvicorn.run(app, host="0.0.0.0", port=settings.port)
+    raw_port = os.getenv("PORT", "8000")
+    try:
+        port = int(raw_port)
+    except ValueError:
+        port = 8000
+
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
